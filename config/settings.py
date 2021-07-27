@@ -24,15 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ['DJ_TMPLT32__SECRET_KEY']
-SECRET_KEY = 'django-insecure-1u4b-j(e5h1vk8dy*x8=_&5l#$hm6id-m+5_@od2twi=5w)8ul'
+# SECRET_KEY = os.environ['AEON_MASSAGER__SECRET_KEY']
+SECRET_KEY = os.environ['AEON_MASSAGER__SECRET_KEY']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = json.loads( os.environ['DJ_TMPLT32__DEBUG_JSON'] )  # will be True or False
+# DEBUG = json.loads( os.environ['AEON_MASSAGER__DEBUG_JSON'] )  # will be True or False
 DEBUG = True
 
-# ALLOWED_HOSTS = json.loads( os.environ['DJ_TMPLT32__ALLOWED_HOSTS_JSON'] )  # list
+# ALLOWED_HOSTS = json.loads( os.environ['AEON_MASSAGER__ALLOWED_HOSTS_JSON'] )  # list
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -62,7 +62,6 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # 'DIRS': ['/Users/birkin/Documents/Brown_Library/djangoProjects/django_template_3x_stuff/aeon_massager_project/aeon_massager_app',],
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -77,12 +76,12 @@ TEMPLATES = [
 ]
 
 
-# template_dirs = json.loads( os.environ['DJ_TMPLT32__TEMPLATES_JSON'] )
+# template_dirs = json.loads( os.environ['AEON_MASSAGER__TEMPLATES_JSON'] )
 # print( f'dirs, ``{pprint.pformat(template_dirs)}``' )
 # TEMPLATES = [
 #     {
 #         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-#         'DIRS': json.loads( os.environ['DJ_TMPLT32__TEMPLATES_JSON'] ),
+#         'DIRS': json.loads( os.environ['AEON_MASSAGER__TEMPLATES_JSON'] ),
 #         'APP_DIRS': True,
 #         'OPTIONS': {
 #             'context_processors': [
@@ -98,7 +97,7 @@ TEMPLATES = [
 # pprint.pprint( TEMPLATES )
 
 
-# template_dirs = json.loads( os.environ['DJ_TMPLT32__TEMPLATES_JSON'] )
+# template_dirs = json.loads( os.environ['AEON_MASSAGER__TEMPLATES_JSON'] )
 # print( f'dirs, ``{pprint.pformat(template_dirs)}``' )
 # TEMPLATES = [
 #     {
@@ -145,25 +144,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
-#         # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #         'NAME': db_path,
 #     }
 # }
 
-DATABASES = json.loads( os.environ['DJ_TMPLT32__DATABASES_JSON'] )
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'aeon_massager_project_db.sqlite3',
-#     }
-# }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': '/Users/birkin/Documents/Brown_Library/djangoProjects/django_template_3x_stuff/aeon_massager_project_db/aeon_massager_project_db.sqlite3',
-#     }
-# }
+# DATABASES = json.loads( os.environ['AEON_MASSAGER__DATABASES_JSON'] )
 
 
 # Password validation
