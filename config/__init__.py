@@ -6,6 +6,6 @@
 # except ImportError:
 #     pass
 
-print( 'hereA' )
-import pprint, sys
-print( f'sys.path, ``{pprint.pformat(sys.path)}``' )
+# print( 'hereA' )
+# import pprint, sys
+# print( f'sys.path, ``{pprint.pformat(sys.path)}``' )

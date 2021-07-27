@@ -29,31 +29,31 @@ SECRET_KEY = os.environ['AEON_MASSAGER__SECRET_KEY']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = json.loads( os.environ['AEON_MASSAGER__DEBUG_JSON'] )  # will be True or False
-DEBUG = True
+DEBUG = json.loads( os.environ['AEON_MASSAGER__DEBUG_JSON'] )  # will be True or False
+# DEBUG = True
 
-# ALLOWED_HOSTS = json.loads( os.environ['AEON_MASSAGER__ALLOWED_HOSTS_JSON'] )  # list
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = json.loads( os.environ['AEON_MASSAGER__ALLOWED_HOSTS_JSON'] )  # list
+# ALLOWED_HOSTS = []
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
+    # 'django.contrib.admin',
+    # 'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
+    # 'django.contrib.sessions',
+    # 'django.contrib.messages',
     'django.contrib.staticfiles',
     'aeon_massager_app'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # 'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -175,7 +175,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -188,3 +188,47 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': "[%(asctime)s] %(levelname)s [%(module)s-%(funcName)s()::%(lineno)d] %(message)s",
+            'datefmt': "%d/%b/%Y %H:%M:%S"
+        },
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
+        },
+        # 'logfile': {
+        #     'level':'DEBUG',
+        #     'class':'logging.FileHandler',  # note: configure server to use system's log-rotate to avoid permissions issues
+        #     'filename': os.environ.get(u'DISA_DJ__LOG_PATH'),
+        #     'formatter': 'standard',
+        # },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+            },
+        'aeon_massager_app': {
+            # 'handlers': ['logfile', 'console'],  # leaving here as reminder that this is how to show output in the terminal
+            # 'handlers': ['logfile'],
+            'handlers': ['console'],
+            'level': os.environ['AEON_MASSAGER__LOG_LEVEL'],
+            'propagate': False
+        },
+    }
+}
