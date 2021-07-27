@@ -2,7 +2,13 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 
+def handler(request):
+    return HttpResponse( 'handler response coming' )
+
+
+def version(request):
+    return HttpResponse( 'version response coming' )
+
+
 def info(request):
-    # return HttpResponse("Hello, world. You're at the info-I page.")
-    resp = render( request, 'info.html', {'foo': 'DD'} )
-    return resp
+    return HttpResponse( 'info response coming' )
