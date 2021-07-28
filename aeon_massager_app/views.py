@@ -1,6 +1,7 @@
 import logging, pprint
 
 import django
+from django.conf import settings as project_settings
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
@@ -30,8 +31,9 @@ def handler(request):
     truncated_title = ''
     if 'ItemTitle' in params_query_dict_copy.keys():
         title = params_query_dict_copy['ItemTitle']
-        if len( title ) > 10:
-            truncated_title = f'{title[0:7]}...'
+        if len( title ) > project_settings.TRUNCATE_LENGTH:
+            len_minus_elipsis = project_settings.TRUNCATE_LENGTH - 3
+            truncated_title = f'{title[0:len_minus_elipsis]}...'
             params_query_dict_copy['ItemTitle'] = truncated_title
     log.debug( f'params_query_dict_copy now, ``{pprint.pformat(params_query_dict_copy)}``' )
     encoded_qd = params_query_dict_copy.urlencode()
