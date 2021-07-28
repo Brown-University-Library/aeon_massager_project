@@ -1,9 +1,10 @@
 import logging, pprint
 
-from django.http import HttpResponse
+import django
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
-from urllib.parse import urlparse
+# from urllib.parse import urlparse
 # from django.urls import resolve
 
 
@@ -14,12 +15,45 @@ def handler(request):
     log.debug( 'starting handler()' )
     # log.debug( f'request, ``{pprint.pformat(request.__dict__)}``' )
     log.debug( f'request.GET, ``{pprint.pformat(request.GET)}``' )
+    # params = {
+    #     'action': request.GET.get( 'Action', '10' )
+    # }
+    # log.debug( f'params, ``{pprint.pformat(params)}``' )
 
-    log.debug( 'hereA' )
+    # param_dct = dict( request.GET )
+    # log.debug( f'type(param_dct, ``{type(param_dct)}``' )
+    # log.debug( f'param_dct, ``{pprint.pformat(param_dct)}``' )
 
-# https://docs.python.org/3.5/library/urllib.parse.html
-# urllib.parse.parse_qs(
-# urllib.parse.parse_qsl(
+    params_query_dict_copy = request.GET.copy()  # <https://stackoverflow.com/questions/5036498/django-rebuild-a-query-string-without-one-of-the-variables>
+    assert type(params_query_dict_copy) == django.http.request.QueryDict, type(params_query_dict_copy)
+    log.debug( f'params_query_dict_copy initially, ``{pprint.pformat(params_query_dict_copy)}``' )
+    truncated_title = ''
+    if 'ItemTitle' in params_query_dict_copy.keys():
+        title = params_query_dict_copy['ItemTitle']
+        if len( title ) > 10:
+            truncated_title = f'{title[0:7]}...'
+            params_query_dict_copy['ItemTitle'] = truncated_title
+    log.debug( f'params_query_dict_copy now, ``{pprint.pformat(params_query_dict_copy)}``' )
+    encoded_qd = params_query_dict_copy.urlencode()
+    assert type(encoded_qd) == str, type(encoded_qd)
+    log.debug( f'encoded_qd, ``{encoded_qd}``' )
+
+
+    # return HttpResponse( 'test' )
+
+    redirect_url = f'https://jcbl.aeon.atlas-sys.com/aeon.dll?{encoded_qd}'
+    return HttpResponseRedirect( redirect_url )
+
+
+
+# Action=10&
+# Form=30&
+# ReferenceNumber={mms_id}&
+# ItemTitle={rft.btitle}&
+# ItemAuthor={rft.au}&
+# ItemPublisher={rft.place}+{rft.publisher}&
+# CallNumber={call_number}
+
 
     return HttpResponse( 'handler response coming' )
 
