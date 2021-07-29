@@ -73,6 +73,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+SERVER_EMAIL = os.environ['AEON_MASSAGER__SERVER_EMAIL']
+EMAIL_HOST = os.environ['AEON_MASSAGER__EMAIL_HOST']
+EMAIL_PORT = int( os.environ['AEON_MASSAGER__EMAIL_PORT'] )
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
